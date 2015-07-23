@@ -241,7 +241,8 @@ public class Action {
     
     public Action VerifyTextPresent(String text)
     {        
-            return this;
+        WaitForTextPresent(text);
+        	return this;
         }  
    
     
@@ -507,7 +508,19 @@ public Action DeleteAllCookies()
     return this;
 }
 
+public boolean IsVisible(LocatorObject locator)
+{
+  if(driver.findElements(locator.locatorValue).size()>0)
+  {
+	return true;
+  }
+	else
+	{
+		return false;
+	}
 }
+}
+
 
 
 
