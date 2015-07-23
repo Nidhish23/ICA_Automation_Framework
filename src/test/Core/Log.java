@@ -2,32 +2,40 @@ package test.Core;
 
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 
 import org.testng.IClass;
 import org.testng.ITestResult;
 import org.testng.TestListenerAdapter;
-
 public class Log extends TestListenerAdapter {
 	
 	public String fileName;
 	public String messages;
 	static Action Action =new Action();
-	
+	 public static  StringBuffer verificationErrors = new StringBuffer();
 	@Override
 	public void onTestStart(ITestResult tr) {
 		log("Test Started :"+ tr.getName());
+		 		
 		Action.DeleteAllCookies();
 	}
 
+      public Log(String error)
+      {
+    	  
+    	  error=null;
+    	  verificationErrors=null;
+      }
+      public Log()
+      {
+    	  
+    	  
+      }
 	@Override
 	public void onTestSuccess(ITestResult tr) {
 
 		log("Test '" + tr.getName() + "' PASSED");
+		
 
 		// This will print the class name in which the method is present
 		log(tr.getTestClass());
@@ -37,7 +45,7 @@ public class Log extends TestListenerAdapter {
 		// 'o'
 		log("Priority of this method is " + tr.getMethod().getPriority());
 
-		System.out.println("......FINISH.....");
+		System.out.println("..................................FINISH.......................................");
 		Action.DeleteAllCookies();
 	}
 
@@ -46,7 +54,7 @@ public class Log extends TestListenerAdapter {
 		
 		log("Test '" + tr.getName() + "' FAILED");
 		log("Priority of this method is " + tr.getMethod().getPriority());
-		System.out.println(".....");
+		System.out.println(".............................................................................");
 		Action.TakeScreenshot(tr.getName());
 		Action.DeleteAllCookies();
 		tr.getStatus();
@@ -56,17 +64,25 @@ public class Log extends TestListenerAdapter {
 	public void onTestSkipped(ITestResult tr) {
 		log("Test '" + tr.getName() + "' SKIPPED");
 		System.out.println(".....");
+	   
 	}
 
 	private void log(String methodName) {
 		System.out.println(methodName);
+		
 		//WriteToLogFile(methodName);
 	}
 
 	private void log(IClass testClass) {
 		System.out.println(testClass);
+		
 		//WriteToLogFile(testClass.toString());
 		
+	}
+	
+	public static void Error(String message)
+	{
+		verificationErrors.append(message);
 	}
 	
 //Create a log file for every run , if we re run the test cases on same day it will replace the file with latest log.
@@ -109,6 +125,10 @@ public void WriteToLogFile(String messageLog)
 //	}
  //   return this;
 }
+
+
+
+
 
 }
 

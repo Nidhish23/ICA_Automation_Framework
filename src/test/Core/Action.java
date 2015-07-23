@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.Time;
 import java.util.concurrent.TimeUnit;
+import test.Core.Log;
 
 
 
@@ -330,6 +331,7 @@ public void AssertFail(String message)
 {
     String tempMessage = "|| Expected Result : " + " ---|| Actual Result: " + message + " || ";
    System.out.println(tempMessage);
+ Log.Error(message);
    //log.WriteToLogFile(tempMessage);
     
     try {
