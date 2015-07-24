@@ -70,9 +70,10 @@ public class LocatorObject {
 		return locatorValue;
 	}
 	
-	public String Replace(String number)
+	public LocatorObject Replace(String number)
 	{
-		 return objectValue.replace("[*]",number);
+		 objectValue= objectValue.replace("[*]",number);
+		  return this;
 	}
 	}
 	

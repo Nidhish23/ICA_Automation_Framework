@@ -20,17 +20,12 @@ public class Log extends TestListenerAdapter {
 		Action.DeleteAllCookies();
 	}
 
-      public Log(String error)
-      {
-    	  
-    	  error=null;
-    	  verificationErrors=null;
-      }
       public Log()
       {
     	  
-    	  
+    	 verificationErrors=null;
       }
+      
 	@Override
 	public void onTestSuccess(ITestResult tr) {
 
@@ -83,6 +78,7 @@ public class Log extends TestListenerAdapter {
 	public static void Error(String message)
 	{
 		verificationErrors.append(message);
+		System.out.println(verificationErrors);
 	}
 	
 //Create a log file for every run , if we re run the test cases on same day it will replace the file with latest log.
