@@ -15,6 +15,7 @@ public class LocatorObject {
 	
 	public  String objectValue;
 	public String objectDescription;
+ public String locatorType; 
 	By locatorValue ;
 	//Selenium Locator object Identifier 
 	public static String ID="ID";
@@ -32,6 +33,7 @@ public class LocatorObject {
 	public LocatorObject(String object,String LocatorDescription,String locatorType) 
 	{
 		this.objectValue=object;
+		this.locatorType=locatorType;
 		this.locatorValue= GetLocatorObject(object,locatorType);
 		   this.objectDescription=LocatorDescription;
 	}
@@ -72,8 +74,12 @@ public class LocatorObject {
 	
 	public LocatorObject Replace(String number)
 	{
-		 objectValue= objectValue.replace("[*]",number);
-		  return this;
+		 String ObjectV= objectValue.replace("[*]",number);
+		 System.out.println(ObjectV);
+		 locatorValue= GetLocatorObject(ObjectV,locatorType);
+		 System.out.println(objectValue);
+		 return this;
+
 	}
 	}
 	

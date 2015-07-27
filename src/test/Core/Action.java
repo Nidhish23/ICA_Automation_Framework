@@ -79,7 +79,7 @@ public class Action {
 //</revision>
 	public  Action enterText(LocatorObject locator,String text)
 	{
-		driverwait(20);
+		driverwait(10);
 		FindElement(locator).sendKeys(text);
 		return this;
 	}
@@ -94,7 +94,7 @@ public class Action {
 //</revision>
 	public  Action Click(LocatorObject locator)
 	{
-		driverwait(20);
+		driverwait(10);
 		FindElement(locator).click();
 		return this;
 	}
@@ -171,11 +171,28 @@ public class Action {
     /// <returns></returns>
     public Action WaitForTextPresentInElement(LocatorObject locator, String text)
     {
+    	IsTextPresentInElement(locator,text);
+    	
+
+        return this;
+    }
+	
+    
+  /// <summary>
+    ///    wait for text present in element
+    /// </summary>
+    /// <revision>
+    ///     Author:	Nidhish Jain
+    ///     Date:	07/21/2015		Action: Created
+    /// </revision>
+    /// <returns></returns>
+    public boolean IsTextPresentInElement(LocatorObject locator, String text)
+    {
         int flag = 0;
 
-        for (int sec = 0; sec < 20; sec++)
+        for (int sec = 0; sec < 15; sec++)
         {
-            if (GetText(locator).compareToIgnoreCase(text)==1)
+            if (GetText(locator).contains(text))
             {
                 flag = 1;
                 break;
@@ -184,17 +201,20 @@ public class Action {
 
         if (flag == 0)
         {
-            AssertFail( text + " Not found in the locator " +
-                       locator.objectDescription);
+            ActionLog(text + " not found in the locator " + locator.objectDescription);
+            return false;
+            
         }
         else
         {
             ActionLog(text + " verified successfully in the locator " + locator.objectDescription);
+            return true;
         }
 
-        return this;
+        
     }
-	
+    
+    
   /// <summary>
     ///     Verifying the text present in element
     /// </summary>
