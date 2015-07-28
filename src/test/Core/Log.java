@@ -4,41 +4,58 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
 
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 import org.testng.IClass;
 import org.testng.ITestResult;
 import org.testng.TestListenerAdapter;
+
+
 public class Log extends TestListenerAdapter {
 	
 	public String fileName;
 	public String messages;
 	static Action Action =new Action();
-	 public static  StringBuffer verificationErrors = new StringBuffer();
+	public  static Logger log;
+	public Log(String name)
+	{
+		// configure log4j properties file
+	PropertyConfigurator.configure("Log4j.properties");
+	 log = Logger.getLogger(Log.class.getName());
+	}
+	
 	@Override
 	public void onTestStart(ITestResult tr) {
-		log("Test Started :"+ tr.getName());
-		 		
+		
+		Info("****************************************************************************************");
+		 
+		Info("****************************************************************************************");
+	 
+		Info("$$$$$$$$$$$$$$                 "+tr.getName()+ "       $$$$$$$$$$$$$$$$$$$$$");
+	 
+		Info("****************************************************************************************");
+	 
+		Info("****************************************************************************************");
+	 
 		Action.DeleteAllCookies();
 	}
 
       public Log()
       {
-    	  
-    	 verificationErrors=null;
+    	
       }
       
 	@Override
 	public void onTestSuccess(ITestResult tr) {
 
-		log("Test '" + tr.getName() + "' PASSED");
+		Info("Test '" + tr.getName() + "' PASSED");
 		
 
 		// This will print the class name in which the method is present
-		log(tr.getTestClass());
-
-		// This will print the priority of the method.
+				// This will print the priority of the method.
 		// If the priority is not defined it will print the default priority as
 		// 'o'
-		log("Priority of this method is " + tr.getMethod().getPriority());
+		
 
 		System.out.println("..................................FINISH.......................................");
 		Action.DeleteAllCookies();
@@ -47,17 +64,16 @@ public class Log extends TestListenerAdapter {
 	@Override
 	public void onTestFailure(ITestResult tr) {
 		
-		log("Test '" + tr.getName() + "' FAILED");
-		log("Priority of this method is " + tr.getMethod().getPriority());
+		Error("Test '" + tr.getName() + "' FAILED");
 		System.out.println(".............................................................................");
 		Action.TakeScreenshot(tr.getName());
 		Action.DeleteAllCookies();
-		tr.getStatus();
+		
 	}
 
 	@Override
 	public void onTestSkipped(ITestResult tr) {
-		log("Test '" + tr.getName() + "' SKIPPED");
+		Info("Test '" + tr.getName() + "' SKIPPED");
 		System.out.println(".....");
 	   
 	}
@@ -75,12 +91,7 @@ public class Log extends TestListenerAdapter {
 		
 	}
 	
-	public static void Error(String message)
-	{
-		verificationErrors.append(message);
-		System.out.println(verificationErrors);
-	}
-	
+		
 //Create a log file for every run , if we re run the test cases on same day it will replace the file with latest log.
 public String CreateLogFile()
 {
@@ -96,30 +107,35 @@ public String CreateLogFile()
 	return fileName;
 }
 
-public void WriteToLogFile(String messageLog)
-{
-	
-	String message = null;
-	//message.concat(messageLog);
-	
-	//FileWriter fw = null;
-	//try {
-	//	fw = new FileWriter(fileName);
-	//} catch (IOException e) {
-		// TODO Auto-generated catch block
-	//	e.printStackTrace();
-	//}
-  //  BufferedWriter bw = new BufferedWriter(fw);
-  //
-	//	e.printStackTrace();
-	//}
-  //  try {
-	//	bw.close();
-//	} catch (IOException e) {
-		// TODO Auto-generated catch block
-	//	e.printStackTrace();
-//	}
- //   return this;
+
+public  void Info(String message) {
+	 
+	log.info(message);
+
+	}
+
+public void Warn(String message) {
+
+log.warn(message);
+
+}
+
+public void Error(String message) {
+
+log.error(message);
+
+}
+
+public  void fatal(String message) {
+
+log.fatal(message);
+
+}
+
+public  void debug(String message) {
+
+log.debug(message);
+
 }
 
 

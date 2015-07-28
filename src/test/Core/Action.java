@@ -9,8 +9,12 @@ package test.Core;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Time;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
+
 import test.Core.Log;
+
+
 
 
 
@@ -32,8 +36,10 @@ import org.apache.commons.io.FileUtils;
 
 
 
+
+
 import test.Core.*;
-public class Action {
+public class Action<IWebElement> {
 
 	public static  WebDriver driver;
 	public  WebElement element;
@@ -42,7 +48,7 @@ public class Action {
 	
 	By by;
 	private WebDriverWait WebDriverWait;
-	Log log ;
+	Log log= new Log();
 	//Paramaterized constuctor to assign the driver instance 
 	public Action(WebDriver iDriver)
 	{
@@ -340,8 +346,9 @@ public class Action {
 	
 	 public Action ActionLog(String message)
      {
-         System.out.println(message);
-       //  log.WriteToLogFile(message);
+        
+        log.Info(message);
+      
         
 
          return this;
@@ -351,7 +358,7 @@ public void AssertFail(String message)
 {
     String tempMessage = "|| Expected Result : " + " ---|| Actual Result: " + message + " || ";
    System.out.println(tempMessage);
- Log.Error(message);
+ log.Error(tempMessage);
    //log.WriteToLogFile(tempMessage);
     
     try {
@@ -519,8 +526,7 @@ public Action DeleteAllCookies()
              //   {
                  //   DeleteIECookies();
              // }
-       
-        ActionLog("Cookie deleted successfully");
+             
     }
     catch (Exception ex)
     {
@@ -541,6 +547,16 @@ public boolean IsVisible(LocatorObject locator)
 		return false;
 	}
 }
+
+public List<WebElement> GetAllElements(LocatorObject locator)
+{
+    List<WebElement> elements = driver.findElements(locator.GetLocatorObject(locator.objectValue, locator.locatorType));
+        
+    }
+
+    return elements
+}
+
 }
 
 

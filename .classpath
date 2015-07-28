@@ -8,5 +8,9 @@
 	<classpathentry kind="lib" path="E:/ICA Autmation Material/Nidhish Backup/Digital Track/selenium-java-2.45.0/selenium-2.45.0/selenium-java-2.45.0-srcs.jar"/>
 	<classpathentry kind="lib" path="C:/Users/OFFNJA/Downloads/snakeyaml-1.5-sources.jar/snakeyaml-1.5-sources.jar"/>
 	<classpathentry kind="con" path="org.testng.TESTNG_CONTAINER"/>
+	<classpathentry kind="lib" path="C:/Users/OFFNJA/Downloads/apache-log4j-2.3-bin/apache-log4j-2.3-bin/log4j-1.2-api-2.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/OFFNJA/Downloads/apache-log4j-2.3-bin/apache-log4j-2.3-bin/log4j-api-2.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/OFFNJA/Downloads/apache-log4j-2.3-bin/apache-log4j-2.3-bin/log4j-core-2.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/OFFNJA/Downloads/apache-log4j-2.3-bin/apache-log4j-2.3-bin/log4j-web-2.3.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

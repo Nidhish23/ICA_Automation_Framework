@@ -16,9 +16,9 @@ import java.util.Properties;
  
 public class ReadProperties  {
  
-    Properties prop = new Properties();
+    static Properties prop = new Properties();
     
- public String Properties(String propertyName)	 
+ public static String Properties(String propertyName)	 
  {
 	 
       	try {
