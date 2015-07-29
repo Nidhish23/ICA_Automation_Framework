@@ -17,6 +17,7 @@ public class LocatorObject {
 	public String objectDescription;
  public String locatorType; 
 	By locatorValue ;
+	WebElement element;
 	//Selenium Locator object Identifier 
 	public static String ID="ID";
 	public 	static String CSS="CSS";
@@ -30,6 +31,16 @@ public class LocatorObject {
 	//public LocatorObject() {
 		// TODO Auto-generated constructor stub
 	//}
+	public LocatorObject(WebElement element,String object,String LocatorDescription,String locatorType) 
+	{
+		
+		this.objectValue=object;
+		this.locatorType=locatorType;
+		this.locatorValue= GetLocatorObject(object,locatorType);;
+		   this.objectDescription=LocatorDescription;
+		   this.element=element;
+	}
+	
 	public LocatorObject(String object,String LocatorDescription,String locatorType) 
 	{
 		this.objectValue=object;
@@ -37,7 +48,6 @@ public class LocatorObject {
 		this.locatorValue= GetLocatorObject(object,locatorType);
 		   this.objectDescription=LocatorDescription;
 	}
-	
 	
 	//Method to identified the locator object type
 	public By GetLocatorObject(String locator,String locatorType)
@@ -75,9 +85,7 @@ public class LocatorObject {
 	public LocatorObject Replace(String number)
 	{
 		 String ObjectV= objectValue.replace("[*]",number);
-		 System.out.println(ObjectV);
 		 locatorValue= GetLocatorObject(ObjectV,locatorType);
-		 System.out.println(objectValue);
 		 return this;
 
 	}

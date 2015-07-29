@@ -17,6 +17,7 @@ import java.util.logging.Logger;
 import org.testng.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.testng.annotations.AfterSuite;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.AfterClass;
@@ -26,6 +27,7 @@ import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.apache.log4j.PropertyConfigurator;
 import org.apache.log4j.xml.DOMConfigurator;
+
 
 
 import test.Core.*;
@@ -41,8 +43,8 @@ public  class TestBase {
 	  @BeforeSuite
 	  public static void BeforeSuit()
 	  {
-		
-		 log=new Log("Log file started");
+		Common.CreateDirectory(Common.GetLocationPath()+"\\Log\\"+Common.GetDate());
+		 log=new Log("Log file Created");
 	      
 		
 	  }
@@ -53,6 +55,8 @@ public  class TestBase {
 
 	public static void beforeTest(@Optional String Browser) {
 		
+		try
+		{
 		if (Browser==null)
 		{
 		
@@ -64,8 +68,14 @@ public  class TestBase {
 		}
 		 new Action(driver);
 		// System.out.println(driver);
-		 driver.manage().window().maximize(); 
-		 log.Error("Test case started");
+		// driver.manage().window().maximize(); 
+		 log.Info("Test case started");
+		}
+		catch(Exception ex)
+		{
+			log.Error(ex.getMessage());
+		}
+		
 	  }
 	  
 	  @AfterTest
@@ -73,11 +83,17 @@ public  class TestBase {
 	  {
 		  driver.manage().deleteAllCookies();
 		  driver.quit();
-		  log.Error("Selenium_Test_001");
-		   // String verificationErrorString = Log2.verificationErrors.toString();
+		  // String verificationErrorString = Log2.verificationErrors.toString();
 		   // if (!"".equals(verificationErrorString)) {
 		   //   Assert.fail(verificationErrorString);
 		  //  }
+	  }
+	  @AfterSuite
+	  public static void AfterSuit()
+	  {
+		log.GenerateReportsLog();
+	      
+		
 	  }
 	  
 

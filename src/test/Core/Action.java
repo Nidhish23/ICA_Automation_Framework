@@ -19,6 +19,8 @@ import test.Core.Log;
 
 
 
+
+
 import org.testng.annotations.Test;
 import org.testng.Assert;
 import org.testng.AssertJUnit;
@@ -32,6 +34,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.apache.commons.io.FileUtils;
+
+
 
 
 
@@ -317,31 +321,25 @@ public class Action<IWebElement> {
 	
 	public WebElement FindElement(LocatorObject locator) 
 	{
-		//	try
-		//{
-		//	WebDriverWait.until(ExpectedConditions.visibilityOf(driver.findElement(locator.locatorValue)));	
-		//	}
-		// catch (org.openqa.selenium.ElementNotVisibleException ex)
-		//  {
-            //Handling exception if the element is not visible
-		//    AssertFail("ElementNotVisibleException: " + locator.objectDescription +
-		//         " Not Visible in the current Page. " + ex.getMessage());
-                       //  }
-				
-                       //  catch (org.openqa.selenium.NoSuchElementException ex)
-                       //  {
-            //Handle exception if the element is not found 
-                       //    AssertFail("NoSuchElementException: The Object " + locator.objectDescription + " not found! " + ex.getMessage());
-                       //  }
-                       //  catch (org.openqa.selenium.StaleElementReferenceException ex)
-                       //   {
-		//	WebDriverWait.until(ExpectedConditions.visibilityOf(driver.findElement(locator.locatorValue)));
-		//    return driver.findElement(locator.locatorValue);
-		//     }
-        //Handle any unexpected exception 
-       		
-		return driver.findElement(locator.locatorValue);
-		
+		try
+       	{
+       	return driver.findElement(locator.locatorValue);
+       	}
+       	catch (org.openqa.selenium.NoSuchElementException ex)
+          {
+//Handle exception if the element is not found 
+            AssertFail("NoSuchElementException: The Object " + locator.objectDescription + " not found! " + ex.getMessage());
+          }
+         catch (org.openqa.selenium.StaleElementReferenceException ex)
+           { driverwait(10);
+           return driver.findElement(locator.locatorValue);
+           }
+		catch (WebDriverException ex)
+        {
+//Handle exception if the element is not found 
+          AssertFail("NoSuchElementException: The Object " + locator.objectDescription + " not found! " + ex.getMessage());
+        }
+       	return driver.findElement(locator.locatorValue);
 	}
 	
 	 public Action ActionLog(String message)
@@ -494,17 +492,23 @@ public Action SelectdropdrownValueByValue(LocatorObject locator,String value)
 
 public Action TakeScreenshot(String screenShotName)
 {
-	String location  = Common.GetLocationPath() +"\\test-output\\"+ Common.GetDate();
+	String location  = Common.GetLocationPath() +"\\test-output\\"+ Common.GetDate()+"Screenshots";
  Common.CreateDirectory(location);
-	   
+ try { 
 	File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
 	File destFile=new File(location+"\\"+screenShotName+".jpg");
 	ActionLog("Failed Screenshot Saved at :"+location+"\\"+screenShotName+".jpg");
-	try {
+	
 		FileUtils.copyFile(scrFile,destFile );
 	} catch (IOException e) {
 		// TODO Auto-generated catch block
 	e.printStackTrace();
+	AssertFail(e.getMessage());
+	}
+ catch (WebDriverException e) {
+		// TODO Auto-generated catch block
+	e.printStackTrace();
+	AssertFail(e.getMessage());
 	}
     return this;
 }
@@ -538,7 +542,8 @@ public Action DeleteAllCookies()
 
 public boolean IsVisible(LocatorObject locator)
 {
-  if(driver.findElements(locator.locatorValue).size()>0)
+  
+	if(driver.findElements(locator.locatorValue).size()>0)
   {
 	return true;
   }
@@ -546,15 +551,19 @@ public boolean IsVisible(LocatorObject locator)
 	{
 		return false;
 	}
+ 
+	
+	
+  
 }
 
 public List<WebElement> GetAllElements(LocatorObject locator)
 {
+	
     List<WebElement> elements = driver.findElements(locator.GetLocatorObject(locator.objectValue, locator.locatorType));
+    
         
-    }
-
-    return elements
+   return elements;
 }
 
 }

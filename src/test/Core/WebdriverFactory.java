@@ -52,6 +52,15 @@ public class WebdriverFactory {
         	//dc.setBrowserName("iExplorer");
         	//driver=new InternetExplorerDriver(dc);
             break;
+         case "iPhone":
+         	
+        	 String userAgent = "Mozilla/5.0 (iPhone; CPU iPhone OS 8_0 like Mac OS X) AppleWebKit/600.1.3 (KHTML, like Gecko) Version/8.0 Mobile/12A4345d Safari/600.1.4";
+               ChromeOptions co = new ChromeOptions();
+              co.addArguments("--user-agent=" + userAgent);
+              dc.setCapability("screenResolution", "375x667");
+              dc = DesiredCapabilities.chrome();
+              dc.setCapability(ChromeOptions.CAPABILITY , co);
+             break; 
                   
     }
 		  try {

@@ -13,15 +13,18 @@ import org.testng.TestListenerAdapter;
 
 public class Log extends TestListenerAdapter {
 	
-	public String fileName;
-	public String messages;
+	public String strfileName;
+	public String strmessages;
 	static Action Action =new Action();
 	public  static Logger log;
+	public String strfoldername;
 	public Log(String name)
 	{
 		// configure log4j properties file
 	PropertyConfigurator.configure("Log4j.properties");
 	 log = Logger.getLogger(Log.class.getName());
+	 strfoldername=Common.GetLocationPath()+"\\Log\\"+Common.GetDate();
+	 
 	}
 	
 	@Override
@@ -95,8 +98,8 @@ public class Log extends TestListenerAdapter {
 //Create a log file for every run , if we re run the test cases on same day it will replace the file with latest log.
 public String CreateLogFile()
 {
-	fileName=Common.GetLocationPath()+"\\Log"+"\\"+Common.GetDate()+".txt";
-	File file = new File(fileName);
+	strfileName=Common.GetLocationPath()+"\\Log"+"\\"+Common.GetDate()+".txt";
+	File file = new File(strfileName);
 	
 	try {
 		file.createNewFile();
@@ -104,7 +107,14 @@ public String CreateLogFile()
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
-	return fileName;
+	return strfileName;
+}
+
+public void GenerateReportsLog()
+{
+	
+Common.CopyDirectory(Common.GetLocationPath()+"\\test-output\\",Common.GetLogReportFolderLocation());
+Info("TestExecution Report and Log placed under Log folder");
 }
 
 
