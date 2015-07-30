@@ -15,6 +15,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
 import org.testng.Assert;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.AfterSuite;
@@ -27,6 +28,7 @@ import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.apache.log4j.PropertyConfigurator;
 import org.apache.log4j.xml.DOMConfigurator;
+
 
 
 
@@ -69,6 +71,19 @@ public  class TestBase {
 		 new Action(driver);
 		// System.out.println(driver);
 		// driver.manage().window().maximize(); 
+		 if(Browser.contains("iPhone"))
+		 {
+			 driver.manage().window().setSize(new Dimension(375,667));
+		 }
+		 else if(Browser.contains("iPad"))
+		 {
+			 driver.manage().window().setSize(new Dimension(667,375));
+		 }
+		 else
+		 {
+			 driver.manage().window().maximize(); 
+		 }
+			 
 		 log.Info("Test case started");
 		}
 		catch(Exception ex)

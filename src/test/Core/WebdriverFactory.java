@@ -21,6 +21,8 @@ public class WebdriverFactory {
 	
 	public static WebDriver driver;
 	public static DesiredCapabilities dc;
+	 String strUserAgent;
+	 ChromeOptions option = new ChromeOptions();
 	 
 	 public WebDriver getDriver(String browser,String server,String port)
 	 {	
@@ -54,12 +56,19 @@ public class WebdriverFactory {
             break;
          case "iPhone":
          	
-        	 String userAgent = "Mozilla/5.0 (iPhone; CPU iPhone OS 8_0 like Mac OS X) AppleWebKit/600.1.3 (KHTML, like Gecko) Version/8.0 Mobile/12A4345d Safari/600.1.4";
-               ChromeOptions co = new ChromeOptions();
-              co.addArguments("--user-agent=" + userAgent);
-              dc.setCapability("screenResolution", "375x667");
+        	  strUserAgent = "Mozilla/5.0 (iPhone; CPU iPhone OS 8_0 like Mac OS X) AppleWebKit/600.1.3 (KHTML, like Gecko) Version/8.0 Mobile/12A4345d Safari/600.1.4";
+              option.addArguments("--user-agent=" + strUserAgent);
+             // dc.setCapability("screenResolution", "375x667");
               dc = DesiredCapabilities.chrome();
-              dc.setCapability(ChromeOptions.CAPABILITY , co);
+              dc.setCapability(ChromeOptions.CAPABILITY , option);
+             break; 
+         case "iPad":
+          	
+        	  strUserAgent = "Mozilla/5.0 (iPad; CPU OS 7_0 like Mac OS X) AppleWebKit/537.51.1 (KHTML, like Gecko) Version/7.0 Mobile/11A465 Safari/9537.53";
+              option.addArguments("--user-agent=" + strUserAgent);
+             // dc.setCapability("screenResolution", "375x667");
+              dc = DesiredCapabilities.chrome();
+              dc.setCapability(ChromeOptions.CAPABILITY , option);
              break; 
                   
     }
