@@ -89,11 +89,26 @@ public class Action<IWebElement> {
 //</revision>
 	public  Action enterText(LocatorObject locator,String text)
 	{
-		driverwait(10);
+		driverwait(5);
 		FindElement(locator).sendKeys(text);
 		return this;
 	}
 	
+	// <summary>
+//  Enter the text
+//</summary>
+//Paramters: URL 	
+//<revision>
+//  Author:	Nidhish Jain
+//  Date:	07/14/2015		Action: Created
+//</revision>
+	public  Action enterTextWithClear(LocatorObject locator,String text)
+	{
+		driverwait(5);
+		FindElement(locator).clear();
+		FindElement(locator).sendKeys(text);
+		return this;
+	}
 // <summary>
 //  Enter the text
 //</summary>
@@ -224,6 +239,11 @@ public class Action<IWebElement> {
         
     }
     
+    public Action  WaitForPageLoad()
+    {
+    	driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+    	return this;
+    }
     
   /// <summary>
     ///     Verifying the text present in element

@@ -46,6 +46,7 @@ public static void CreateDirectory(String directoryName)
     
     try {
 		FileUtils.copyDirectory(sourceFile, destinationFile);
+		//FileUtils.deleteDirectory(sourceFile);
 	} catch (IOException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
@@ -77,6 +78,15 @@ public static void CreateDirectory(String directoryName)
 		  }
 	  
 	  return strfoldername;
+  }
+  public static void DeleteDirectory()
+  {
+	  try {
+		FileUtils.deleteDirectory(new File(GetLocationPath()+"\\test-output\\"));
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
   }
   }
 

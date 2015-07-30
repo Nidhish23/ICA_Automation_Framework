@@ -45,7 +45,8 @@ public  class TestBase {
 	  @BeforeSuite
 	  public static void BeforeSuit()
 	  {
-		Common.CreateDirectory(Common.GetLocationPath()+"\\Log\\"+Common.GetDate());
+		  Common.DeleteDirectory();
+		  Common.CreateDirectory(Common.GetLocationPath()+"\\Log\\"+Common.GetDate());
 		 log=new Log("Log file Created");
 	      
 		
@@ -63,26 +64,26 @@ public  class TestBase {
 		{
 		
 		driver = driverFactory.getDriver(ReadProperties.Properties("Browsername"),ReadProperties.Properties("SeleniumServer"),ReadProperties.Properties("ServerPort"));
+		driver.manage().window().maximize(); 
 		}
 		else
 		{
-		driver = driverFactory.getDriver(Browser,ReadProperties.Properties("SeleniumServer"),ReadProperties.Properties("ServerPort"));
+			driver = driverFactory.getDriver(Browser,ReadProperties.Properties("SeleniumServer"),ReadProperties.Properties("ServerPort"));
+			 if(Browser.contains("iPhone"))
+			 {
+				 driver.manage().window().setSize(new Dimension(375,667));
+			 }
+			 else if(Browser.contains("iPad"))
+			 {
+				 driver.manage().window().setSize(new Dimension(667,375));
+			 }
+			
 		}
 		 new Action(driver);
 		// System.out.println(driver);
 		// driver.manage().window().maximize(); 
-		 if(Browser.contains("iPhone"))
-		 {
-			 driver.manage().window().setSize(new Dimension(375,667));
-		 }
-		 else if(Browser.contains("iPad"))
-		 {
-			 driver.manage().window().setSize(new Dimension(667,375));
-		 }
-		 else
-		 {
-			 driver.manage().window().maximize(); 
-		 }
+					 
+		 
 			 
 		 log.Info("Test case started");
 		}

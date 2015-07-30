@@ -114,7 +114,7 @@ public void GenerateReportsLog()
 {
 	
 Common.CopyDirectory(Common.GetLocationPath()+"\\test-output\\",Common.GetLogReportFolderLocation());
-Info("TestExecution Report and Log placed under Log folder");
+
 }
 
 
