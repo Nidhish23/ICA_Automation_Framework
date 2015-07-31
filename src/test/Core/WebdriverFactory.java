@@ -41,9 +41,10 @@ public class WebdriverFactory {
             break;
         
         case "iExplorer":
-        	
+        	System.setProperty("webdriver.chrome.driver", "Drivers/IEDriverServer.exe");
         	dc=DesiredCapabilities.internetExplorer();
         	dc.isJavascriptEnabled();
+        	dc.setCapability(InternetExplorerDriver.INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS,true);
         	//dc.setBrowserName("iExplorer");
         	//driver=new InternetExplorerDriver(dc);
             break;

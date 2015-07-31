@@ -448,8 +448,14 @@ public Action ClearText(LocatorObject locator)
 public Action SelectRadio(LocatorObject locator)
 {
    element = FindElement(locator);
-
+try
+{
     element.click();
+}
+catch(Exception ex)
+{
+  AssertFail(ex.getMessage());
+}
     return this;
 }
 
