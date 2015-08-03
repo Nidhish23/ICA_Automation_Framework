@@ -9,10 +9,12 @@ package test.Core;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Time;
+import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import test.Core.Log;
+
 
 
 
@@ -34,6 +36,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.apache.commons.io.FileUtils;
+
 
 
 
@@ -591,6 +594,48 @@ public List<WebElement> GetAllElements(LocatorObject locator)
         
    return elements;
 }
+
+public Action VerifyTextPresentInElements(LocatorObject locator,String Searchterm)
+{           
+    try
+    {
+	List<WebElement> element;
+             element = GetAllElements(locator);
+            //List<WebElement> links = elements;
+                                     //Iterator<WebElement> iter = links.iterator();
+             Iterator<WebElement> iter = element.iterator();
+
+while(iter.hasNext()) {
+                WebElement we = iter.next();
+                IsTextPresentInElement(we, Searchterm);
+}
+    }
+    catch(Exception ex)
+    {
+    	AssertFail(ex.getMessage());
+    }
+return this;
+}
+/// <summary>
+///     To VerifyTextPresentINLoop
+/// </summary>
+/// <revision>
+///     Author:          Sreeraj Kurup
+///     Date:            21/07/2015               Action: Created
+/// </revision>
+public boolean IsTextPresentInElement(WebElement we, String strSearchterm){
+            WebElement elem = we;
+            if (elem.getText().contains(strSearchterm)) {
+                    ActionLog(elem.getText());
+                        return true;
+                }
+                else
+                {
+                        ActionLog(elem.getText());
+                             return false;
+                }
+}
+
 
 }
 
