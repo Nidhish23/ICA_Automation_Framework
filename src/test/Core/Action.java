@@ -23,6 +23,7 @@ import test.Core.Log;
 
 
 
+
 import org.testng.annotations.Test;
 import org.testng.Assert;
 import org.testng.AssertJUnit;
@@ -44,6 +45,9 @@ import org.apache.commons.io.FileUtils;
 
 
 
+
+
+import com.thoughtworks.selenium.webdriven.commands.Open;
 
 import test.Core.*;
 public class Action<IWebElement> {
@@ -380,8 +384,8 @@ public void AssertFail(String message)
     String tempMessage = "|| Expected Result : " + " ---|| Actual Result: " + message + " || ";
    System.out.println(tempMessage);
  log.Error(tempMessage);
+ Assert.assertEquals("", message, tempMessage);
    //log.WriteToLogFile(tempMessage);
-    
     try {
 		throw new Exception(tempMessage);
 	} catch (Exception e) {
@@ -407,14 +411,68 @@ public String GetText(LocatorObject locator)
     return value;
 }
 
-/// <summary>
-///     To Right Click on any particular object locator
-/// </summary>
-/// <revision>
-///     Author:	Nidhish Jain
-///     Date:	03/21/2015		Action: Created
-/// </revision>
-/// <returns></returns>
+//<summary>
+//GetText:get text of a locator object
+//</summary>
+//Paramters: URL 	
+//<revision>
+//Author:	Nidhish Jain
+//Date:	07/14/2015		Action: Created
+//</revision>
+public String GetPageTitle()
+{
+    return driver.getTitle();
+   
+   
+}
+//<summary>
+//GetText:get text of a locator object
+//</summary>
+//Paramters: URL 	
+//<revision>
+//Author:	Nidhish Jain
+//Date:	07/14/2015		Action: Created
+//</revision>
+public Action VerifyPageTitle(String pageTitle)
+
+{
+	Assert.assertEquals(GetPageTitle(), pageTitle);
+	return this;
+}
+
+//<summary>
+//GetText:get text of a locator object
+//</summary>
+//Paramters: URL 	
+//<revision>
+//Author:	Nidhish Jain
+//Date:	07/14/2015		Action: Created
+//</revision>
+
+public Action DragAndDropUsingMouse(LocatorObject sourceImageId, LocatorObject destinationObjectId)
+{
+    ActionLog("Dragging " + sourceImageId.objectDescription + " to and Dropping in " +
+    		destinationObjectId.objectDescription);
+    try 
+    {
+    WebElement source = FindElement(sourceImageId); 
+    WebElement destination = FindElement(destinationObjectId);
+   (new Actions(driver)).dragAndDrop(source, destination).perform();
+    }
+    catch(Exception ex)
+    {
+    AssertFail(ex.getMessage());	
+    }
+   return this;
+}
+  /// <summary>
+  ///     To Right Click on any particular object locator
+  /// </summary>
+  /// <revision>
+  ///     Author:	Nidhish Jain
+  ///     Date:	07/21/2015		Action: Created
+  /// </revision>
+  /// <returns></returns>
 public Action RightClick(LocatorObject locator)
 {
     
